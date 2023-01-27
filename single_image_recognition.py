@@ -6,10 +6,12 @@ import matplotlib.pyplot as plt
 class SingleImageRecognition:
 
     @staticmethod
-    def identify_image(test_image, test_image_locations, myface_encoding):
+    def identify_image(test_image, myface_encoding):
 
         # test_image_locations
         # Getting the encodings of the detected face
+        test_image_locations = face_recognition.face_locations(test_image, model='cnn')  # , model="cnn")
+
         test_image_encoding = face_recognition.face_encodings(test_image)[0]
         # test_image_encoding
         # Comparing the faces in both images (single face image)

@@ -6,15 +6,16 @@ import matplotlib.pyplot as plt
 class GroupImageRecognition:
 
     @staticmethod
-    def identify_image(group_test_image, group_test_image_location, myface_encoding):
+    def identify_image(group_test_image, myface_encoding):
 
+        group_test_image_location = face_recognition.face_locations(group_test_image)  # , model="cnn")
 
         for i in group_test_image_location:
             (top, right, bottom, left) = i
 
             cropped_image = group_test_image[top - 50:bottom + 50, left - 50:right + 50]
 
-            cropped_image_locations = face_recognition.face_locations(cropped_image)  # , model="cnn")
+            cropped_image_locations = face_recognition.face_locations(cropped_image, model='cnn')  # , model="cnn")
             cropped_image_encoding = face_recognition.face_encodings(cropped_image)
 
             # print('Cropped Image :')

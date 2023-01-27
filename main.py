@@ -4,7 +4,6 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.datastructures import FileStorage
 import face_recognition
 
-
 from group_image_recognition import GroupImageRecognition
 from single_image_recognition import SingleImageRecognition
 
@@ -40,15 +39,12 @@ class FaceRecognition(Resource):
         test_image = face_recognition.load_image_file("./images/1674710570330.jpg")
 
         # CNN?
-        test_image_locations = face_recognition.face_locations(test_image)
+        test_image_landmarks = face_recognition.face_landmarks(test_image)
 
-        if len(test_image_locations) > 1:
-            GroupImageRecognition.identify_image(group_test_image=test_image,
-                                                 group_test_image_location=test_image_locations,
-                                                 myface_encoding=myface_encoding)
+        if len(test_image_landmarks) > 1:
+            GroupImageRecognition.identify_image(group_test_image=test_image, myface_encoding=myface_encoding)
         else:
-            SingleImageRecognition.identify_image(test_image=test_image, test_image_locations=test_image_locations,
-                                                  myface_encoding=myface_encoding)
+            SingleImageRecognition.identify_image(test_image=test_image, myface_encoding=myface_encoding)
 
         return {"message": "Hello"}, 201
 
